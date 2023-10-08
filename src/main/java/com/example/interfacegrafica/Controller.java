@@ -6,7 +6,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class InterfaceFX {
+public class Controller {
 
     @FXML
     private ChoiceBox<String> operationChoice;

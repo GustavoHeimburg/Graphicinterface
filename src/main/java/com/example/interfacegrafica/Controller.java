@@ -21,7 +21,7 @@ public class Controller {
     private Label resultLabel;
 
     @FXML
-    void calculate(ActionEvent event) {
+    Object calculate(ActionEvent event) {
         try {
             String operation = operationChoice.getValue();
             float num1 = Float.parseFloat(number1Field.getText());
@@ -44,18 +44,19 @@ public class Controller {
                         result = num1 / num2;
                     } else {
                         resultLabel.setText("Erro: Divisão por zero");
-                        return;
+                        return null;
                     }
                     break;
                 default:
                     resultLabel.setText("Opção inválida");
-                    return;
+                    return null;
             }
 
             resultLabel.setText("O resultado é " + result);
         } catch (NumberFormatException e) {
             resultLabel.setText("Erro: Digite números válidos");
         }
+        return null;
     }
 }
 

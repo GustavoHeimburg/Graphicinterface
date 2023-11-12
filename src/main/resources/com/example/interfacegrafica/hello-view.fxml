@@ -3,8 +3,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.Button?>
-<?import com.example.interfacegrafica.Controller?>
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
@@ -14,7 +12,5 @@
         <Label text="Altura (em metros):"/>
         <TextField fx:id="txtAltura" onKeyReleased="#calcularPeso"/>
         <Label fx:id="lblPesoIdeal"/>
-        <Button text="Verificar Peso" onAction="#verificarPeso"/>
     </children>
 </VBox>
-

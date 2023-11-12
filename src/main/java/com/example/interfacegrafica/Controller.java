@@ -1,61 +1,43 @@
 package com.example.interfacegrafica;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-public class Controller {
+public class Controller extends Application {
 
-    @FXML
-    private ChoiceBox<String> operationChoice;
+    @Override
+    public void start(Stage primaryStage) {
+        Label lblAltura = new Label("Altura (em metros):");
+        TextField txtAltura = new TextField();
+        Label lblPesoIdeal = new Label();
 
-    @FXML
-    private TextField number1Field;
+        txtAltura.setOnKeyReleased(e -> {
+            try {
+                double altura = Double.parseDouble(txtAltura.getText());
+                double pesoIdeal = (altura * 100 - 100) * 0.9;
 
-    @FXML
-    private TextField number2Field;
-
-    @FXML
-    private Label resultLabel;
-
-    @FXML
-    void calculate(ActionEvent event) {
-        try {
-            String operation = operationChoice.getValue();
-            float num1 = Float.parseFloat(number1Field.getText());
-            float num2 = Float.parseFloat(number2Field.getText());
-
-            float result = 0;
-
-            switch (operation) {
-                case "+":
-                    result = num1 + num2;
-                    break;
-                case "-":
-                    result = num1 - num2;
-                    break;
-                case "*":
-                    result = num1 * num2;
-                    break;
-                case "/":
-                    if (num2 != 0) {
-                        result = num1 / num2;
-                    } else {
-                        resultLabel.setText("Erro: Divisão por zero");
-                        return;
-                    }
-                    break;
-                default:
-                    resultLabel.setText("Opção inválida");
-                    return;
+                lblPesoIdeal.setText("Seu peso ideal é: " + String.format("%.2f", pesoIdeal) + " kg");
+            } catch (NumberFormatException ex) {
+                lblPesoIdeal.setText("Insira uma altura válida.");
             }
+        });
 
-            resultLabel.setText("O resultado é " + result);
-        } catch (NumberFormatException e) {
-            resultLabel.setText("Erro: Digite números válidos");
-        }
+        VBox root = new VBox(10);
+        root.setPadding(new Insets(10));
+        root.getChildren().addAll(lblAltura, txtAltura, lblPesoIdeal);
+        
+        Scene scene = new Scene(root, 300, 200);
+        primaryStage.setTitle("Calculadora de Peso");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
-

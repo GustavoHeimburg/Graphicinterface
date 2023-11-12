@@ -1,61 +1,73 @@
 package com.example.interfacegrafica;
 
-import javafx.event.ActionEvent;
+import javafx.application.Application;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-public class Controller {
+import java.io.IOException;
 
-    @FXML
-    private ChoiceBox<String> operationChoice;
-
-    @FXML
-    private TextField number1Field;
+public class Controller extends Application {
 
     @FXML
-    private TextField number2Field;
-
+    private Label lblPesoIdeal;
     @FXML
-    private Label resultLabel;
+    private TextField txtAltura;
 
-    @FXML
-    void calculate(ActionEvent event) {
+    @Override
+    public void start(Stage primaryStage) {
+        VBox root = new VBox(10);
+        root.setPadding(new Insets(10));
+
+        Scene scene = new Scene(root, 300, 250);
+        primaryStage.setTitle("Calculadora de Peso");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
         try {
-            String operation = operationChoice.getValue();
-            float num1 = Float.parseFloat(number1Field.getText());
-            float num2 = Float.parseFloat(number2Field.getText());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/hello-view.fxml"));
+            loader.setController(this);
+            root.getChildren().add(loader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-            float result = 0;
+    public static void main(String[] args) {
+        launch(args);
+    }
 
-            switch (operation) {
-                case "+":
-                    result = num1 + num2;
-                    break;
-                case "-":
-                    result = num1 - num2;
-                    break;
-                case "*":
-                    result = num1 * num2;
-                    break;
-                case "/":
-                    if (num2 != 0) {
-                        result = num1 / num2;
-                    } else {
-                        resultLabel.setText("Erro: Divisão por zero");
-                        return;
-                    }
-                    break;
-                default:
-                    resultLabel.setText("Opção inválida");
-                    return;
+    public void calcularPeso() {
+        try {
+            double altura = Double.parseDouble(txtAltura.getText());
+            double pesoIdeal = (altura * 100 - 100) * 0.9;
+
+            lblPesoIdeal.setText("Seu peso ideal é: " + String.format("%.2f", pesoIdeal) + " kg");
+        } catch (NumberFormatException ex) {
+            lblPesoIdeal.setText("Insira uma altura válida.");
+        }
+    }
+
+    public void verificarPeso() {
+        try {
+            double altura = Double.parseDouble(txtAltura.getText());
+            double pesoIdeal = (altura * 100 - 100) * 0.9;
+
+            if (pesoIdeal < 0.9 * pesoIdeal) {
+                lblPesoIdeal.setText("Você está abaixo do peso ideal. Melhore sua saúde.");
+            } else if (pesoIdeal > 1.1 * pesoIdeal) {
+                lblPesoIdeal.setText("Você está acima do peso ideal. Melhore sua saúde.");
+            } else {
+                lblPesoIdeal.setText("Seu peso está OK perante a altura.");
             }
-
-            resultLabel.setText("O resultado é " + result);
-        } catch (NumberFormatException e) {
-            resultLabel.setText("Erro: Digite números válidos");
+        } catch (NumberFormatException ex) {
+            lblPesoIdeal.setText("Insira uma altura válida.");
         }
     }
 }
-

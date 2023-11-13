@@ -15,7 +15,6 @@ public class Controller extends Application {
         Label lblAltura = new Label("Altura (em metros):");
         TextField txtAltura = new TextField();
         Label lblPesoIdeal = new Label();
-
         txtAltura.setOnKeyReleased(e -> {
             try {
                 double altura = Double.parseDouble(txtAltura.getText());
@@ -30,7 +29,7 @@ public class Controller extends Application {
         VBox root = new VBox(10);
         root.setPadding(new Insets(10));
         root.getChildren().addAll(lblAltura, txtAltura, lblPesoIdeal);
-        
+
         Scene scene = new Scene(root, 300, 200);
         primaryStage.setTitle("Calculadora de Peso");
         primaryStage.setScene(scene);

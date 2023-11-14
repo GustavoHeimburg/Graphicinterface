@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Controller extends Application {
-
+//
     @Override
     public void start(Stage primaryStage) {
         Label lblAltura = new Label("Altura (em metros):");

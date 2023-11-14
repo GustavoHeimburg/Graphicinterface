@@ -20,6 +20,7 @@
             <artifactId>javafx-controls</artifactId>
             <version>20.0.1</version>
         </dependency>
+    <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
@@ -39,7 +40,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
